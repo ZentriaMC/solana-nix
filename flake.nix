@@ -59,5 +59,7 @@
         packages.solana-validator-only = packages.solana.override {
           validatorOnly = true;
         };
+
+        packages.solana-perf-libs = pkgs.callPackage ./perf-libs.nix { };
       });
 }
