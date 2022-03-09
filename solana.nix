@@ -113,9 +113,22 @@ rustPlatform.buildRustPackage rec {
 
   cargoBuildFlags = map (n: "--bin=${n}") bins;
 
-  postInstall = lib.optionalString cudaSupport ''
+  postBuild = lib.optionalString (!validatorOnly) ''
+    # TODO
+    #cargo build --manifest-path programs/bpf_loader/gen-syscall-list/Cargo.toml
+  '';
+
+  postInstall = lib.optionalString (!validatorOnly) ''
+    # https://github.com/solana-labs/solana/blob/v1.10.0/scripts/cargo-install-all.sh#L152
+    # TODO
+    #mkdir -p $out/bin/sdk/bpf
+    #cp -a sdk/bpf/* $out/bin/sdk/bpf
+  '' + lib.optionalString cudaSupport ''
     # https://github.com/solana-labs/solana/blob/v1.10.0/scripts/cargo-install-all.sh#L145
     ln -s ${solana-perf-libs}/lib $out/bin/perf-libs
+  '' + ''
+    # https://github.com/solana-labs/solana/blob/v1.10.0/scripts/cargo-install-all.sh#L159
+    # TODO
   '';
 
   meta = with lib; {
