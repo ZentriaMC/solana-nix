@@ -26,6 +26,10 @@
         overlays = [ (import rust-overlay) ];
         pkgs = import nixpkgs {
           inherit system overlays;
+
+          config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
+            "cudatoolkit"
+          ];
         };
 
         # https://rust-lang.github.io/rustup-components-history/
