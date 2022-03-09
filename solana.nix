@@ -17,6 +17,7 @@
 , Security
 , System
 , validatorOnly ? false
+, cudaSupport ? false, solana-perf-libs
 }:
 
 let
@@ -115,6 +116,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://solana.com/";
     description = "Solana is a decentralized blockchain built to enable scalable, user-friendly apps for the world.";
+    license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
     # Requires >=11.0 SDK
     broken = stdenv.isDarwin && stdenv.isx86_64;
