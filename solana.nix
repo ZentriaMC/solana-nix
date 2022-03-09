@@ -113,6 +113,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoBuildFlags = map (n: "--bin=${n}") bins;
 
+  postInstall = lib.optionalString cudaSupport ''
+    # https://github.com/solana-labs/solana/blob/v1.10.0/scripts/cargo-install-all.sh#L145
+    ln -s ${solana-perf-libs}/lib $out/bin/perf-libs
+  '';
+
   meta = with lib; {
     homepage = "https://solana.com/";
     description = "Solana is a decentralized blockchain built to enable scalable, user-friendly apps for the world.";
