@@ -17,7 +17,8 @@
 , Security
 , System
 , validatorOnly ? false
-, cudaSupport ? false, solana-perf-libs
+, cudaSupport ? false
+, solana-perf-libs
 }:
 
 let
@@ -51,16 +52,19 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "solana${lib.optionalString validatorOnly "-validator-only"}";
-  version = "1.10.2";
+  version = "1.10.8";
 
   src = fetchFromGitHub {
     owner = "solana-labs";
     repo = "solana";
     rev = "v${version}";
-    sha256 = "sha256-zZ+arfDjBgxvrt9S8LWGeHetRmsJTKIXUbwns+/+xhY=";
+    sha256 = "sha256-nEypaAz2sXA9UKSFCuIxN6yKS9UROn1u5OPpPuG+h3M=";
   };
 
-  cargoSha256 = "sha256-Tv5UM+bg27o48TdnWq9IL/erQYGKLEL+411OUyinpTA=";
+  cargoSha256 =
+    if validatorOnly
+    then "sha256-Nx3Jwn+BzmxzGb1OZqmoLr2rSHWAx/OukEcLdWulMdE="
+    else "sha256-89LdaILNAQJe8tsbEaWYSYNGdfE2gKJhthrFSC/GEl8=";
 
   buildInputs = [
     hidapi
