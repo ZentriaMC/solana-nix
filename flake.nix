@@ -48,7 +48,7 @@
       in
       rec {
         packages.solana = pkgs.callPackage ./solana.nix {
-          rustPlatform = mkRustPlatform "stable" "1.59.0";
+          rustPlatform = mkRustPlatform "stable" "1.60.0";
           solana-perf-libs = if pkgs.stdenv.isLinux then packages.solana-perf-libs else null;
 
           inherit (pkgs.darwin.apple_sdk.frameworks) AppKit CoreFoundation IOKit Security;
