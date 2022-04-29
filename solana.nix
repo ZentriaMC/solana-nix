@@ -52,19 +52,19 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "solana${lib.optionalString validatorOnly "-validator-only"}";
-  version = "1.10.10";
+  version = "1.10.11";
 
   src = fetchFromGitHub {
     owner = "solana-labs";
     repo = "solana";
     rev = "v${version}";
-    sha256 = "sha256-ImhS4zHQM0A211Uks9BKw+cyJxv4fCe692ssRoY1zbQ=";
+    sha256 = "sha256-m2nzpAzWEy5cVe7tCyOv3TC+yFQLQF4sMorTHLorttA=";
   };
 
   cargoSha256 =
     if validatorOnly
-    then "sha256-oJ1Ll5IkYsuf9D0zoTLh0BcaTapdDc63g4U49E8FNQI="
-    else "sha256-O2KOevI5NhM4/BSYjM246v87gok7AGi8p/BjNzPYVU8=";
+    then "sha256-kYTg4Rsti8zkqod5/XJnVnWHSXTfZQ2G1B9tHSeEMo8="
+    else "sha256-UOq4j6EVZ/OUmhB/ro6i5xo9pTzH9kYdKTzcvGaMayU=";
 
   buildInputs = [
     hidapi
